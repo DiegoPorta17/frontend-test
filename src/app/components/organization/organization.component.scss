@@ -339,7 +339,7 @@ $transition: all 0.3s ease;
       }
 
       &:active {
-        background-color: darken($primary-color, 10%);
+        //background-color: darken($primary-color, 10%);
         transform: translateY(1px);
       }
     }
@@ -355,7 +355,7 @@ $transition: all 0.3s ease;
       }
 
       &:active {
-        color: darken($primary-color, 10%);
+        //color: darken($primary-color, 10%);
         transform: translateY(1px);
       }
     }
