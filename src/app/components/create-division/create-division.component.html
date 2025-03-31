@@ -8,10 +8,9 @@
 
     <ng-container *nzModalContent>
         <form nz-form [formGroup]="divisionForm" class="division-form">
-            <!-- Division Name -->
             <nz-form-item>
                 <nz-form-label [nzRequired]="true" nzFor="divisionName">
-                    Ingresa el nombre de la división que quieres crear:
+                    Ingresa el nombre de la división
                 </nz-form-label>
                 <nz-form-control nzErrorTip="¡El nombre de la división es requerido!">
                     <input
@@ -23,10 +22,9 @@
                 </nz-form-control>
             </nz-form-item>
 
-            <!-- Parent Division -->
             <nz-form-item>
                 <nz-form-label [nzRequired]="true" nzFor="parentDiv">
-                    Selecciona la división superior. Esta se encontrará por encima de la división creada en el organigrama de la organización:
+                    Selecciona la división superior
                 </nz-form-label>
                 <nz-form-control nzErrorTip="¡La división superior es requerida!">
                     <nz-select
@@ -39,7 +37,6 @@
                 </nz-form-control>
             </nz-form-item>
 
-            <!-- Ambassador (Optional) -->
             <nz-form-item>
                 <nz-form-label nzFor="ambassador">
                     Ingresa el nombre del embajador (Opcional)
