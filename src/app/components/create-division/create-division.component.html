@@ -1,0 +1,63 @@
+<nz-modal
+        [nzVisible]="isVisible"
+        nzTitle="Crear División"
+        (nzOnCancel)="handleCancel()"
+        [nzFooter]="modalFooter"
+        [nzWidth]="1000"
+        nzClassName="division-modal">
+
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="divisionForm" class="division-form">
+            <!-- Division Name -->
+            <nz-form-item>
+                <nz-form-label [nzRequired]="true" nzFor="divisionName">
+                    Ingresa el nombre de la división que quieres crear:
+                </nz-form-label>
+                <nz-form-control nzErrorTip="¡El nombre de la división es requerido!">
+                    <input
+                            nz-input
+                            id="divisionName"
+                            formControlName="name"
+                            placeholder="Nombre de la división"
+                            class="form-input"/>
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- Parent Division -->
+            <nz-form-item>
+                <nz-form-label [nzRequired]="true" nzFor="parentDiv">
+                    Selecciona la división superior. Esta se encontrará por encima de la división creada en el organigrama de la organización:
+                </nz-form-label>
+                <nz-form-control nzErrorTip="¡La división superior es requerida!">
+                    <nz-select
+                            id="parentDiv"
+                            formControlName="parentDivision"
+                            nzPlaceHolder="Seleccionar división"
+                            class="form-select">
+                        <nz-option *ngFor="let div of divisions" [nzValue]="div.id" [nzLabel]="div.name"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- Ambassador (Optional) -->
+            <nz-form-item>
+                <nz-form-label nzFor="ambassador">
+                    Ingresa el nombre del embajador (Opcional)
+                </nz-form-label>
+                <nz-form-control>
+                    <input
+                            nz-input
+                            id="ambassador"
+                            formControlName="ambassador"
+                            placeholder="Nombre del embajador"
+                            class="form-input"/>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-container>
+
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()" class="btn-cancel">Cancelar</button>
+        <button nz-button nzType="primary" (click)="handleSubmit()" class="btn-accept">Aceptar</button>
+    </ng-template>
+</nz-modal>

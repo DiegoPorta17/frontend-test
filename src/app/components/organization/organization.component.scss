@@ -1,0 +1,386 @@
+.organization-container {
+  padding: 20px;
+  background-color: #fff;
+  min-height: 100%;
+  .org-header {
+    h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #262626;
+      font-weight: 500;
+    }
+  }
+
+  .org-tabs {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    .ant-tabs-nav {
+      margin-bottom: 15px;
+    }
+
+    .ant-tabs-tab {
+      padding: 12px 0;
+      margin-right: 32px;
+      font-size: 14px;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+      }
+
+      .add-button {
+        background-color: #1890ff;
+        color: white;
+        border-color: #1890ff;
+
+        &:hover {
+          background-color: #40a9ff;
+          border-color: #40a9ff;
+        }
+      }
+    }
+  }
+
+  .view-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+
+    .view-toggle {
+      display: flex;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      overflow: hidden;
+      height: 32px;
+
+      button {
+        border: none;
+        background: white;
+        padding: 0 15px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.3s;
+
+        &:hover {
+          color: #1890ff;
+        }
+
+        &.active {
+          background-color: #e6f7ff;
+          color: #1890ff;
+          font-weight: 500;
+        }
+
+        &:first-child {
+          border-right: 1px solid #d9d9d9;
+        }
+      }
+    }
+    .right-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .view-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    nz-input-group {
+      width: 250px;
+    }
+
+    .column-selector {
+      min-width: 160px;
+      padding: 8px 0;
+
+      li {
+        padding: 8px 16px;
+      }
+    }
+  }
+
+  .filter-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    gap: 8px;
+
+    .search-input {
+      width: 250px;
+    }
+
+    ::ng-deep .ant-input-affix-wrapper {
+      border-radius: 4px;
+    }
+  }
+
+  .table-container {
+    margin-bottom: 20px;
+
+    .add-icon {
+      color: #1890ff;
+      margin-left: 6px;
+      cursor: pointer;
+    }
+
+    ::ng-deep .ant-table-thead > tr > th {
+      background: #fafafa;
+      font-weight: 500;
+      color: #262626;
+    }
+
+    ::ng-deep .ant-table-tbody > tr > td {
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    ::ng-deep .ant-table-tbody > tr:hover > td {
+      background: #fafafa;
+    }
+
+    .table-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding: 0 8px;
+
+      .total-count {
+        color: #888;
+        font-size: 14px;
+      }
+
+      .filter-summary {
+        font-size: 14px;
+        color: #888;
+      }
+    }
+  }
+
+  .header-with-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .filter-trigger {
+      display: inline-flex;
+      color: inherit;
+
+      &:hover {
+        color: #1890ff;
+      }
+    }
+    .iconcolor{
+        color: #b6b6b6;
+        margin-right: 15px;
+    }
+    .filter-icon {
+      font-size: 14px;
+      margin-left: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &.active-filter {
+        color: #1890ff;
+        background-color: #e6f7ff;
+      }
+
+      &:hover {
+        color: #1890ff;
+      }
+    }
+  }
+
+  .filter-content {
+    padding: 12px;
+    width: 240px;
+    background: #fff;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05);
+
+    .filter-input {
+      margin-bottom: 12px;
+
+      input {
+        width: 100%;
+      }
+    }
+
+    .filter-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+  }
+
+  .column-selector {
+    background: white;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+
+    ::ng-deep .ant-menu {
+      border-inline-end: none !important;
+    }
+
+    label {
+      width: 100%;
+    }
+  }
+}
+
+.tree-container {
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+  border-radius: 4px;
+  border: 1px dashed #d9d9d9;
+  color: #888;
+}
+$primary-color: #1890ff;
+$primary-hover: #40a9ff;
+$border-color: #d9d9d9;
+$text-color: rgba(0, 0, 0, 0.85);
+$background-color: #ffffff;
+$shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+$border-radius: 4px;
+$transition: all 0.3s ease;
+
+.filter-content {
+  padding: 16px;
+  min-width: 215px;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.filter-options {
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+
+.filter-option {
+  margin-bottom: 12px;
+
+  label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: $text-color;
+    transition: $transition;
+    padding: 4px 0;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+
+  button {
+    min-width: 85px;
+    height: 32px;
+    border-radius: $border-radius;
+    font-size: 14px;
+    font-weight: 500;
+    transition: $transition;
+    cursor: pointer;
+    padding: 0 15px;
+    outline: none;
+
+    &[nzType="primary"] {
+      background-color: $primary-color;
+      border: 1px solid $primary-color;
+      color: $background-color;
+
+      &:hover {
+        background-color: $primary-hover;
+        border-color: $primary-hover;
+        box-shadow: 0 2px 6px rgba(24, 144, 255, 0.25);
+      }
+
+      &:active {
+        background-color: darken($primary-color, 10%);
+        transform: translateY(1px);
+      }
+    }
+
+    &:not([nzType="primary"]) {
+      color: $primary-color;
+      border: 1px solid $border-color;
+      background-color: $background-color;
+
+      &:hover {
+        color: $primary-hover;
+        border-color: $primary-hover;
+      }
+
+      &:active {
+        color: darken($primary-color, 10%);
+        transform: translateY(1px);
+      }
+    }
+  }
+}
+
+.nz-checkbox-custom {
+  .ant-checkbox-inner {
+    border-color: $border-color;
+    background-color: $background-color;
+    border-radius: 2px;
+    transition: $transition;
+
+    &:after {
+      border-color: $background-color;
+    }
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+
+  .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+  .ant-checkbox:hover .ant-checkbox-inner {
+    border-color: $primary-color;
+  }
+}

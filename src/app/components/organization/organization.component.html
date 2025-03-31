@@ -1,0 +1,333 @@
+<div class="organization-container">
+  <!-- Header -->
+  <div class="org-header">
+    <h2>Organización</h2>
+  </div>
+
+  <!-- Tabs -->
+  <div class="org-tabs">
+    <nz-tabset>
+      <nz-tab nzTitle="Divisiones"></nz-tab>
+      <nz-tab nzTitle="Colaboradores"></nz-tab>
+    </nz-tabset>
+    <div class="action-buttons">
+      <button nz-button nzType="primary" class="add-button" (click)="showCreateModal()">
+        <i class="fas fa-plus"></i>
+      </button>
+      <button nz-button>
+        <i class="fas fa-upload"></i>
+      </button>
+      <button nz-button>
+        <i class="fas fa-download"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- View Toggle -->
+  <div class="view-controls">
+    <div class="view-toggle">
+      <button [class.active]="activeView === 'list'" (click)="changeView('list')">Listado</button>
+      <button [class.active]="activeView === 'tree'" (click)="changeView('tree')">Árbol</button>
+    </div>
+    <div class="right-controls">
+      <button nz-button nz-dropdown [nzDropdownMenu]="columnMenu">
+        <span>Columnas</span>
+        <i nz-icon nzType="down"></i>
+      </button>
+
+      <!-- Search input field -->
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="Buscar" [(ngModel)]="searchValue" (ngModelChange)="filterDivisions()">
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+    </div>
+  </div>
+
+  <nz-dropdown-menu #columnMenu="nzDropdownMenu">
+    <ul nz-menu class="column-selector">
+      <li nz-menu-item *ngFor="let column of columnsConfig">
+        <label nz-checkbox [(ngModel)]="selectedFilters[column.key]">
+          {{ column.title }}
+        </label>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #nameFilterMenu="nzDropdownMenu">
+    <div class="filter-content">
+      <div class="filter-options">
+        <div *ngFor="let option of filterOptions['name']" class="filter-option">
+          <label nz-checkbox
+                 [ngModel]="isFilterOptionSelected('name', option)"
+                 (ngModelChange)="toggleFilterOption('name', option)">
+            {{ option }}
+          </label>
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button nz-button nzType="primary" nzSize="small" (click)="applyFilter('name')">OK</button>
+        <button nz-button nzSize="small" (click)="resetFilter('name')">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
+  <!-- Parent Division Filter Dropdown Template -->
+  <nz-dropdown-menu #parentDivisionFilterMenu="nzDropdownMenu">
+    <div class="filter-content">
+      <div class="filter-options">
+        <div *ngFor="let option of filterOptions['parentDivision']" class="filter-option">
+          <label nz-checkbox
+                 [ngModel]="isFilterOptionSelected('parentDivision', option)"
+                 (ngModelChange)="toggleFilterOption('parentDivision', option)">
+            {{ option }}
+          </label>
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button nz-button nzType="primary" nzSize="small" (click)="applyFilter('parentDivision')">OK</button>
+        <button nz-button nzSize="small" (click)="resetFilter('parentDivision')">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
+  <!-- Collaborators Filter Dropdown Template -->
+  <nz-dropdown-menu #collaboratorsFilterMenu="nzDropdownMenu">
+    <div class="filter-content">
+      <div class="filter-options">
+        <div *ngFor="let option of filterOptions['collaborators']" class="filter-option">
+          <label nz-checkbox
+                 [ngModel]="isFilterOptionSelected('collaborators', option)"
+                 (ngModelChange)="toggleFilterOption('collaborators', option)">
+            {{ option }}
+          </label>
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button nz-button nzType="primary" nzSize="small" (click)="applyFilter('collaborators')">OK</button>
+        <button nz-button nzSize="small" (click)="resetFilter('collaborators')">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
+  <!-- Level Filter Dropdown Template -->
+  <nz-dropdown-menu #levelFilterMenu="nzDropdownMenu">
+    <div class="filter-content">
+      <div class="filter-options">
+        <div *ngFor="let option of filterOptions['level']" class="filter-option">
+          <label nz-checkbox
+                 [ngModel]="isFilterOptionSelected('level', option)"
+                 (ngModelChange)="toggleFilterOption('level', option)">
+            {{ option }}
+          </label>
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button nz-button nzType="primary" nzSize="small" (click)="applyFilter('level')">OK</button>
+        <button nz-button nzSize="small" (click)="resetFilter('level')">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
+  <!-- Subdivisions Filter Dropdown Template -->
+  <nz-dropdown-menu #subdivisionsFilterMenu="nzDropdownMenu">
+    <div class="filter-content">
+      <div class="filter-options">
+        <div *ngFor="let option of filterOptions['subdivisions']" class="filter-option">
+          <label nz-checkbox
+                 [ngModel]="isFilterOptionSelected('subdivisions', option)"
+                 (ngModelChange)="toggleFilterOption('subdivisions', option)">
+            {{ option }}
+          </label>
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button nz-button nzType="primary" nzSize="small" (click)="applyFilter('subdivisions')">OK</button>
+        <button nz-button nzSize="small" (click)="resetFilter('subdivisions')">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
+  <!-- Ambassador Filter Dropdown Template -->
+  <nz-dropdown-menu #ambassadorFilterMenu="nzDropdownMenu">
+    <div class="filter-content">
+      <div class="filter-options">
+        <div *ngFor="let option of filterOptions['ambassador']" class="filter-option">
+          <label nz-checkbox
+                 [ngModel]="isFilterOptionSelected('ambassador', option)"
+                 (ngModelChange)="toggleFilterOption('ambassador', option)">
+            {{ option }}
+          </label>
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button nz-button nzType="primary" nzSize="small" (click)="applyFilter('ambassador')">OK</button>
+        <button nz-button nzSize="small" (click)="resetFilter('ambassador')">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
+  <!-- Table View -->
+  <div class="table-container" *ngIf="activeView === 'list'">
+    <nz-spin [nzSpinning]="isLoading">
+      <nz-table
+        #divisionTable
+        [nzData]="filteredDivisions"
+        [nzPageSize]="pageSize"
+        [nzPageIndex]="pageIndex"
+        [nzTotal]="total"
+        [nzFrontPagination]="true"
+        [nzShowPagination]="true"
+        (nzPageIndexChange)="onPageChange($event)"
+        (nzPageSizeChange)="onPageSizeChange($event)"
+        (nzQueryParams)="onQueryParamsChange($event)">
+
+        <thead>
+        <tr>
+          <th [nzWidth]="'50px'">
+            <label nz-checkbox></label>
+          </th>
+          <th
+            *ngIf="visibleColumns.division"
+            nzColumnKey="name"
+            [nzSortFn]="true"
+            [nzShowSort]="true">
+            <div class="header-with-filter">
+              <span>División</span>
+              <a nz-dropdown [nzDropdownMenu]="nameFilterMenu"
+                 [nzVisible]="filters.name.visible"
+                 (nzVisibleChange)="filters.name.visible = $event"
+                 (click)="$event.stopPropagation(); toggleFilterDropdown('name')">
+                <i class="fas fa-filter iconcolor" [class.active-filter]="selectedFilters['name'].length > 0"></i>
+              </a>
+            </div>
+          </th>
+          <th
+            *ngIf="visibleColumns.superiorDivision"
+            nzColumnKey="parentDivision"
+            [nzSortFn]="true"
+            [nzShowSort]="true">
+            <div class="header-with-filter">
+              <span>División superior</span>
+              <a nz-dropdown [nzDropdownMenu]="parentDivisionFilterMenu"
+                 [nzVisible]="filters.parentDivision.visible"
+                 (nzVisibleChange)="filters.parentDivision.visible = $event"
+                 (click)="$event.stopPropagation(); toggleFilterDropdown('parentDivision')">
+                <i class="fas fa-filter iconcolor" [class.active-filter]="selectedFilters['parentDivision'].length > 0"></i>
+              </a>
+            </div>
+          </th>
+          <th
+            *ngIf="visibleColumns.collaborators"
+            nzColumnKey="collaborators"
+            [nzSortFn]="true"
+            [nzShowSort]="true">
+            <div class="header-with-filter">
+              <span>Colaboradores</span>
+              <a nz-dropdown [nzDropdownMenu]="collaboratorsFilterMenu"
+                 [nzVisible]="filters.collaborators.visible"
+                 (nzVisibleChange)="filters.collaborators.visible = $event"
+                 (click)="$event.stopPropagation(); toggleFilterDropdown('collaborators')">
+                <i class="fas fa-filter iconcolor" [class.active-filter]="selectedFilters['collaborators'].length > 0"></i>
+              </a>
+            </div>
+          </th>
+          <th
+            *ngIf="visibleColumns.level"
+            nzColumnKey="level"
+            [nzSortFn]="true"
+            [nzShowSort]="true">
+            <div class="header-with-filter">
+              <span>Nivel</span>
+              <a nz-dropdown [nzDropdownMenu]="levelFilterMenu"
+                 [nzVisible]="filters.level.visible"
+                 (nzVisibleChange)="filters.level.visible = $event"
+                 (click)="$event.stopPropagation(); toggleFilterDropdown('level')">
+                <i class="fas fa-filter iconcolor" [class.active-filter]="selectedFilters['level'].length > 0"></i>
+              </a>
+            </div>
+          </th>
+          <th
+            *ngIf="visibleColumns.subdivisions"
+            nzColumnKey="subdivisions"
+            [nzSortFn]="true"
+            [nzShowSort]="true">
+            <div class="header-with-filter">
+              <span>Subdivisiones</span>
+              <a nz-dropdown [nzDropdownMenu]="subdivisionsFilterMenu"
+                 [nzVisible]="filters.subdivisions.visible"
+                 (nzVisibleChange)="filters.subdivisions.visible = $event"
+                 (click)="$event.stopPropagation(); toggleFilterDropdown('subdivisions')">
+                <i class="fas fa-filter iconcolor" [class.active-filter]="selectedFilters['subdivisions'].length > 0"></i>
+              </a>
+            </div>
+          </th>
+          <th
+            *ngIf="visibleColumns.ambassadors"
+            nzColumnKey="ambassador"
+            [nzSortFn]="true"
+            [nzShowSort]="true">
+            <div class="header-with-filter">
+              <span>Embajadores</span>
+              <a nz-dropdown [nzDropdownMenu]="ambassadorFilterMenu"
+                 [nzVisible]="filters.ambassador.visible"
+                 (nzVisibleChange)="filters.ambassador.visible = $event"
+                 (click)="$event.stopPropagation(); toggleFilterDropdown('ambassador')">
+                <i class="fas fa-filter iconcolor" [class.active-filter]="selectedFilters['ambassador'].length > 0"></i>
+              </a>
+            </div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let division of divisionTable.data">
+          <td>
+            <label nz-checkbox></label>
+          </td>
+          <td *ngIf="visibleColumns.division">{{ division.name }}</td>
+          <td *ngIf="visibleColumns.superiorDivision">{{ division.parentDivision?.name || '-' }}</td>
+          <td *ngIf="visibleColumns.collaborators">{{ division.collaboratorsCount }}</td>
+          <td *ngIf="visibleColumns.level">{{ division.level }}</td>
+          <td *ngIf="visibleColumns.subdivisions">
+            {{ division.subdivisionsCount }}
+
+          </td>
+          <td *ngIf="visibleColumns.ambassadors">{{ division.ambassadorName || '-' }}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-spin>
+
+    <div class="table-footer">
+      <div class="filter-summary">
+        <button *ngIf="hasActiveFilters" nz-button nzType="link" (click)="resetAllFilters()">
+          <i nz-icon nzType="clear"></i> Limpiar filtros
+        </button>
+      </div>
+
+      <span class="total-count">Total divisiones: {{ total }}</span>
+
+      <nz-pagination
+        [nzPageIndex]="pageIndex"
+        [nzPageSize]="pageSize"
+        [nzTotal]="total"
+        nzShowSizeChanger
+        [nzPageSizeOptions]="[10, 20, 30, 50]"
+        (nzPageIndexChange)="onPageChange($event)"
+        (nzPageSizeChange)="onPageSizeChange($event)">
+      </nz-pagination>
+    </div>
+  </div>
+
+  <!-- Tree View -->
+  <div class="tree-container" *ngIf="activeView === 'tree'">
+    <p>Vista de árbol (organizacional) irá aquí</p>
+  </div>
+
+  <app-create-division
+    *ngIf="isCreateModalVisible"
+    [isVisible]="isCreateModalVisible"
+    (cancel)="handleCreateModalCancel()"
+    (create)="handleCreateDivision()">
+  </app-create-division>
+</div>

@@ -1,0 +1,42 @@
+<div class="header-layout">
+  <div class="brand">
+    <span class="logo">mandü</span>
+  </div>
+
+  <ul class="menu">
+    <li [class.active]="activeSection === 'dashboard'" (click)="navigateToSection('dashboard')">Dashboard</li>
+    <li [class.active]="activeSection === 'organization'" (click)="navigateToSection('organization')">Organización</li>
+    <li [class.active]="activeSection === 'modelos'" (click)="navigateToSection('modelos')">
+      Modelos
+      <i nz-icon nzType="down" nzTheme="outline"></i>
+    </li>
+    <li [class.active]="activeSection === 'seguimiento'" (click)="navigateToSection('seguimiento')">
+      Seguimiento
+      <i nz-icon nzType="down" nzTheme="outline"></i>
+    </li>
+  </ul>
+
+  <div class="right-section">
+    <div class="icon-button">
+      <i class="fas fa-briefcase inconcolor"></i>
+    </div>
+    <div class="icon-button">
+      <i class="fas fa-question-circle"></i>
+    </div>
+    <div class="icon-button">
+      <nz-badge nzDot>
+        <i class="fas fa-bell"></i>
+      </nz-badge>
+    </div>
+
+    <div class="user-section">
+      <nz-avatar nzText="A" nzSize="large" [ngStyle]="{'background-color': '#f56a00'}"></nz-avatar>
+      <span class="username">{{ username }}</span>
+      <i nz-icon nzType="down" nzTheme="outline"></i>
+    </div>
+
+    <div class="brand-logo">
+      <span>mandü</span>
+    </div>
+  </div>
+</div>
