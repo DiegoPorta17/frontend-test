@@ -15,3 +15,8 @@ export interface SubDivision {
   collaboratorsCount: number;
   ambassadorName: string | null;
 }
+export interface UpdateDivision {
+  name?: string;
+  parentDivisionId?: number;
+  ambassadorName?: string;
+}

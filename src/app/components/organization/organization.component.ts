@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Division } from '../../models/division.model';
 import { DivisionService } from '../../services/devision.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,13 +10,15 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { CreateDivisionComponent } from '../create-division/create-division.component';
+import { UpdateDivisionComponent } from '../update-division/update-division.component';
 import { CommonModule } from '@angular/common';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import {NzDropdownMenuComponent, NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import { NzDropdownMenuComponent, NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import {NzMenuModule} from 'ng-zorro-antd/menu';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-organization',
@@ -39,6 +41,7 @@ import {NzMenuModule} from 'ng-zorro-antd/menu';
     NzSpinModule,
     NzMenuModule,
     CreateDivisionComponent,
+    UpdateDivisionComponent,
   ],
   templateUrl: './organization.component.html',
   styleUrl: './organization.component.scss'
@@ -54,6 +57,8 @@ export class OrganizationComponent implements OnInit {
   searchValue = '';
   activeView = 'list';
   isCreateModalVisible = false;
+  isUpdateModalVisible = false;
+  selectedDivision: Division | null = null;
   isLoading = false;
 
   filterOptions: Record<string, string[]> = {
@@ -102,7 +107,10 @@ export class OrganizationComponent implements OnInit {
     ambassadors: true
   };
 
-  constructor(private divisionService: DivisionService) {}
+  constructor(
+    private divisionService: DivisionService,
+    private modal: NzModalService,
+    private message: NzMessageService) {}
 
   ngOnInit(): void {
     this.loadDivisions();
@@ -286,5 +294,49 @@ export class OrganizationComponent implements OnInit {
   toggleColumn(column: string): void {
     this.visibleColumns[column as keyof typeof this.visibleColumns] =
       !this.visibleColumns[column as keyof typeof this.visibleColumns];
+  }
+  showUpdateModal(division: Division): void {
+    this.selectedDivision = division;
+    this.isUpdateModalVisible = true;
+  }
+
+  handleUpdateModalCancel(): void {
+    this.isUpdateModalVisible = false;
+    this.selectedDivision = null;
+  }
+
+  handleUpdateDivision(): void {
+    this.isUpdateModalVisible = false;
+    this.selectedDivision = null;
+    this.loadDivisions();
+  }
+
+  confirmDelete(division: Division): void {
+    this.modal.confirm({
+      nzTitle: '¿Estás seguro de eliminar esta división?',
+      nzContent: `Esta acción eliminará la división "${division.name}" permanentemente.`,
+      nzOkText: 'Sí, eliminar',
+      nzOnOk: () => this.deleteDivision(division.id),
+      nzCancelText: 'Cancelar'
+    });
+  }
+
+  deleteDivision(id: number): void {
+    this.isLoading = true;
+    this.divisionService.deleteDivision(id).subscribe({
+      next: () => {
+        this.message.success('División eliminada exitosamente');
+        this.loadDivisions();
+      },
+      error: (err) => {
+        this.isLoading = false;
+        if (err.error && err.error.message === 'Cannot delete a division that has subdivisions') {
+          this.message.error('No se puede eliminar una división que tiene subdivisiones');
+        } else {
+          this.message.error('Error al eliminar la división');
+        }
+        console.error(err);
+      }
+    });
   }
 }

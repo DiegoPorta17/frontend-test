@@ -1,0 +1,72 @@
+.division-modal .ant-modal-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.division-modal .ant-modal-body {
+  padding: 30px 24px;
+}
+
+.division-modal .ant-modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Estilos para el formulario */
+.division-form .ant-form-item {
+  margin-bottom: 28px;
+}
+
+.division-form .ant-form-item-label {
+  text-align: left;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.division-form .ant-form-item-label > label {
+  white-space: normal;
+  line-height: 1.5;
+  height: auto;
+}
+
+.division-form .ant-form-item-required::before {
+  display: inline-block;
+  margin-right: 4px;
+  color: #ff4d4f;
+  font-size: 14px;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+  content: '*';
+}
+
+/* Estilos para los inputs */
+.form-input {
+  width: 100%;
+  height: 40px;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+/* Estilos para los selects */
+.form-select {
+  width: 100%;
+}
+
+.division-form .ant-select-selector {
+  height: 40px !important;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos para los botones */
+.btn-cancel, .btn-accept {
+  height: 36px;
+  min-width: 80px;
+  padding: 0 16px;
+  border-radius: 4px;
+}
+
+.btn-accept {
+  margin-left: 10px;
+}

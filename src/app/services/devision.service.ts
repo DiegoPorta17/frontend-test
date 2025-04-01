@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Division } from '../models/division.model';
+import {Division, UpdateDivision} from '../models/division.model';
 import {environment} from '../../enviroment/enviroment';
 
 ;
@@ -30,7 +30,7 @@ export class DivisionService {
     return this.http.post<Division>(this.apiUrl, division);
   }
 
-  updateDivision(id: number, division: Division): Observable<Division> {
+  updateDivision(id: number, division: UpdateDivision): Observable<Division> {
     return this.http.put<Division>(`${this.apiUrl}/${id}`, division);
   }
 

@@ -277,6 +277,7 @@
               </a>
             </div>
           </th>
+          <th nzWidth="100px">Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -293,6 +294,14 @@
 
           </td>
           <td *ngIf="visibleColumns.ambassadors">{{ division.ambassadorName || '-' }}</td>
+          <td class="actions-column">
+            <button nz-button nzType="primary" nzSize="small" (click)="showUpdateModal(division)">
+              <i class="fas fa-pen"></i>
+            </button>
+            <button nz-button nzDanger nzSize="small" (click)="confirmDelete(division)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
         </tr>
         </tbody>
       </nz-table>
@@ -330,4 +339,12 @@
     (cancel)="handleCreateModalCancel()"
     (create)="handleCreateDivision()">
   </app-create-division>
+
+  <app-update-division
+    *ngIf="isUpdateModalVisible && selectedDivision"
+    [isVisible]="isUpdateModalVisible"
+    [division]="selectedDivision"
+    (cancel)="handleUpdateModalCancel()"
+    (update)="handleUpdateDivision()">
+  </app-update-division>
 </div>
